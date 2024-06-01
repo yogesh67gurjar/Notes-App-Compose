@@ -1,6 +1,7 @@
 package com.notesappcompose
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -29,16 +30,24 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.notesappcompose.model.Note
 import com.notesappcompose.ui.theme.darkCharcoal
 import com.notesappcompose.ui.theme.darkGray
+import com.notesappcompose.ui.theme.green
+import com.notesappcompose.ui.theme.lightRed
+import com.notesappcompose.ui.theme.pink
+import com.notesappcompose.ui.theme.purple
+import com.notesappcompose.ui.theme.skyBlue
+import com.notesappcompose.ui.theme.yellow
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +71,7 @@ class MainActivity : ComponentActivity() {
 private fun Header() {
     Row(
         modifier = Modifier
-            .padding(top = 20.dp, start = 13.dp, end = 13.dp)
+            .padding(top = 20.dp, start = 16.dp, end = 16.dp)
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -114,9 +123,14 @@ fun MainContent() {
         contentAlignment = Alignment.Center
     ) {
 
-        PlaceHolder()
-        SavedNotes()
-        AddNoteIcon(
+        if (getNotes().isEmpty()) {
+            PlaceHolder()
+        } else {
+            SavedNotes(getNotes())
+
+        }
+
+        AddNoteFloatingButton(
             Modifier
                 .padding(end = 20.dp, bottom = 20.dp)
                 .background(color = Color.Black, shape = CircleShape)
@@ -127,8 +141,33 @@ fun MainContent() {
 }
 
 @Composable
-fun SavedNotes() {
+fun SavedNotes(notes: MutableList<Note>) {
+    val colors = listOf(lightRed, green, yellow, skyBlue, purple, pink)
+    LazyColumn(modifier = Modifier
+        .padding(start = 16.dp, end = 16.dp), content = {
+        items(notes) {
+            val colorIndex = notes.indexOf(it) % colors.size
+            val color = colors[colorIndex]
+            SingleNote(it, color)
+        }
+    })
+}
 
+@Composable
+fun SingleNote(note: Note, color: Color) {
+    Text(
+        text = note.title,
+
+        modifier = Modifier
+            .padding(vertical = 8.dp)
+            .background(color = color, shape = RoundedCornerShape(size = 8.dp))
+            .padding(20.dp)
+            .fillMaxWidth(),
+        color = Color.Black,
+        fontSize = 18.sp,
+        textAlign = TextAlign.Center,
+        fontFamily = FontFamily(Font(resId = R.font.nunito_regular))
+    )
 }
 
 @Composable
@@ -152,11 +191,10 @@ fun PlaceHolder() {
             fontFamily = FontFamily(Font(resId = R.font.nunito_regular))
         )
     }
-
 }
 
 @Composable
-fun AddNoteIcon(modifier: Modifier) {
+fun AddNoteFloatingButton(modifier: Modifier) {
     Box(
         modifier = modifier, contentAlignment = Alignment.Center
     ) {
@@ -180,4 +218,19 @@ fun MyPreview() {
         Header()
         MainContent()
     }
+}
+
+fun getNotes(): MutableList<Note> {
+    val notes: MutableList<Note> = mutableListOf()
+    notes.add(Note("Importance of education", "android developer"))
+    notes.add(Note("Kirana list", "Company secretary"))
+    notes.add(Note("Kotlin coroutines", "hotel manager"))
+    notes.add(Note("Null handling in kotlin", "tech lead"))
+    notes.add(Note("How to win friends and influence people", "react developer"))
+    notes.add(Note("Rich dad poor dad", "android senior developer"))
+    notes.add(Note("The Rudest book ever", "android jr developer"))
+    notes.add(Note("My dreams by dr.yogesh", "android developer"))
+    notes.add(Note("Tere jaisa yaar kaha", "hotel manager"))
+    notes.add(Note("Love the way you lie", "react developer"))
+    return notes
 }
