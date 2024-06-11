@@ -6,8 +6,8 @@ import androidx.navigation.compose.NavHost
 
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.notesappcompose.AddNewNote
-import com.notesappcompose.MainScreen
+import com.notesappcompose.ui.AddNewNote
+import com.notesappcompose.ui.MainScreen
 
 @Composable
 fun NavGraph(navHostController: NavHostController, context: Context) {

@@ -1,7 +1,6 @@
-package com.notesappcompose
+package com.notesappcompose.ui
 
 import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -33,6 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.notesappcompose.R
 import com.notesappcompose.model.Note
 import com.notesappcompose.navigation.NavCases
 import com.notesappcompose.ui.theme.darkCharcoal
@@ -179,11 +179,7 @@ fun PlaceHolder() {
 }
 
 @Composable
-fun AddNoteFloatingButton(
-
-    navHostController: NavHostController,
-    modifier: Modifier
-) {
+fun AddNoteFloatingButton(navHostController: NavHostController, modifier: Modifier) {
     Box(
         modifier = modifier,
         contentAlignment = Alignment.Center,

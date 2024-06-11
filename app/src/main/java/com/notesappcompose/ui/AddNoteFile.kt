@@ -1,9 +1,8 @@
-package com.notesappcompose
+package com.notesappcompose.ui
 
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,6 +24,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.notesappcompose.R
 import com.notesappcompose.ui.theme.darkCharcoal
 import com.notesappcompose.ui.theme.darkGray
 import com.notesappcompose.ui.theme.transparent
